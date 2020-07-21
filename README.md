@@ -8,7 +8,7 @@ React component for entering and validating a PIN code.
 
 
 ## Storybook
-TODO
+[https://albertsabate.github.io/react-pin-code-input/](https://albertsabate.github.io/react-pin-code-input/)
 
 
 ## License
