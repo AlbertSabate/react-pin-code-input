@@ -7,6 +7,11 @@ React component for entering and validating a PIN code.
 `npm i --save react-pin-code-input` or `yarn add react-pin-code-input`
 
 
+## Important instructions
+- value has to be an state type Array<string>(numberOfFields >= 1).fill('').
+- OnInputChange should update the value state.
+- Redefined pattern should consider empty and limit to 1 character. Template /^$|^(`Your allowed key`)$/
+
 ## Storybook
 [https://albertsabate.github.io/react-pin-code-input/](https://albertsabate.github.io/react-pin-code-input/)
 

@@ -3,7 +3,7 @@ import React, {
   HTMLAttributes,
   CSSProperties,
   KeyboardEvent,
-  FocusEvent,
+  ClipboardEvent,
   createRef,
   useState,
 } from 'react';
@@ -75,6 +75,8 @@ const keyCode: KeyCode = {
 const patterns: Patterns = {
   number: /^$|^([0-9])$/,
   tel: /^$|^([0-9])$/,
+  text: /^$|^(.)$/,
+  password: /^$|^(.)$/,
 };
 
 export const uuidv4 = (): string =>
@@ -87,7 +89,7 @@ export const uuidv4 = (): string =>
 
 export const ReactPinCodeInput: FC<ReactPinCodeInputProps> = ({
   type,
-  value: values,
+  value: stateValues,
   onInputChange,
   className,
   autoFocus,
@@ -102,11 +104,12 @@ export const ReactPinCodeInput: FC<ReactPinCodeInputProps> = ({
 }) => {
   const uuid = uuidv4();
   const [focusIndex, setFocusIndex] = useState(autoFocus ? 0 : -1);
-  const refs = Array.from({ length: values.length }).map(() =>
+  const refs = Array.from({ length: stateValues.length }).map(() =>
     createRef<HTMLInputElement>()
   );
 
   const onChange = (
+    value: string,
     index: number,
     direction: 'next' | 'prev' | 'current' = 'current'
   ) => {
@@ -115,19 +118,59 @@ export const ReactPinCodeInput: FC<ReactPinCodeInputProps> = ({
       next: index + 1 >= refs.length ? refs.length - 1 : index + 1,
       prev: index - 1 < 0 ? 0 : index - 1,
     };
-    const current = refs[index]?.current;
-    const changedValues = [...values];
+    const ref = refs[index]?.current;
+    const changedValues = [...stateValues];
 
-    const checkPattern = pattern || patterns[type];
-    if (current && checkPattern && !checkPattern.test(current?.value ?? '')) {
-      current.value = changedValues[index];
-      return;
+    if (ref) {
+      const checkPattern = pattern || patterns[type];
+      if (checkPattern && !checkPattern.test(value)) {
+        ref.value = changedValues[index];
+        return;
+      }
+
+      changedValues[index] = value;
+      ref.value = changedValues[index];
+      setFocusIndex(focusIndex[direction]);
+      onInputChange(changedValues);
+    }
+  };
+
+  const onChangeAll = (values: Array<string>, setIndex: number) => {
+    for (const [key, value] of values.entries()) {
+      const ref = refs[key]?.current;
+
+      if (ref) {
+        ref.value = stateValues[key];
+
+        const checkPattern = pattern || patterns[type];
+        if (checkPattern && !checkPattern.test(value)) {
+          values[key] = stateValues[key];
+          ref.value = stateValues[key];
+        }
+      }
     }
 
-    changedValues[index] = current?.value ?? '';
+    setFocusIndex(setIndex);
+    onInputChange(values);
+  };
 
-    setFocusIndex(focusIndex[direction]);
-    onInputChange(changedValues);
+  const onPaste = (e: ClipboardEvent<HTMLInputElement>, index: number) => {
+    const values = [...stateValues];
+    const clipboardValues = e.clipboardData.getData('Text').split('');
+    for (const [key, value] of clipboardValues.entries()) {
+      const ref = refs[index + key]?.current;
+
+      if (ref) {
+        values[index + key] = value;
+      }
+    }
+
+    onChangeAll(
+      values,
+      index + clipboardValues.length >= refs.length
+        ? refs.length - 1
+        : index + clipboardValues.length
+    );
   };
 
   const onKeyDown = (e: KeyboardEvent<HTMLInputElement>, index: number) => {
@@ -135,17 +178,19 @@ export const ReactPinCodeInput: FC<ReactPinCodeInputProps> = ({
     const next = refs[index + 1]?.current;
     const prev = refs[index - 1]?.current;
 
-    e.preventDefault();
+    if (!(e.ctrlKey || e.metaKey)) {
+      e.preventDefault();
+    }
+
     switch (e.keyCode) {
       case keyCode.BACKSPACE:
-        if (current && current.value !== '') {
-          current.value = '';
-          onChange(index, 'prev');
-          prev?.focus();
-        } else if (prev && current && current.value === '') {
-          prev.focus();
-          prev.value = '';
-          onChange(index - 1, 'current');
+        if (e.ctrlKey || e.metaKey) {
+          e.preventDefault();
+          onChangeAll(Array<string>(stateValues.length).fill(''), 0);
+        } else if (current?.value !== '') {
+          onChange('', index, 'prev');
+        } else if (current?.value === '') {
+          onChange('', index - 1, 'current');
         }
         break;
       case keyCode.LEFT_ARROW:
@@ -160,16 +205,15 @@ export const ReactPinCodeInput: FC<ReactPinCodeInputProps> = ({
         const checkPattern = pattern || patterns[type];
         if (current?.value === e.key) {
           next?.focus();
-        } else if (checkPattern && !checkPattern.test(e.key)) {
+        } else if (
+          (checkPattern && !checkPattern.test(e.key)) ||
+          e.ctrlKey ||
+          e.metaKey
+        ) {
         } else if (current) {
-          current.value = e.key;
-          onChange(index, 'next');
+          onChange(e.key, index, 'next');
         }
     }
-  };
-
-  const onFocus = (e: FocusEvent<HTMLInputElement>) => {
-    e.currentTarget.select();
   };
 
   return (
@@ -182,11 +226,11 @@ export const ReactPinCodeInput: FC<ReactPinCodeInputProps> = ({
           key={`${uuid}-${index}`}
           type={type}
           autoFocus={index === focusIndex}
-          defaultValue={values[index]}
+          value={stateValues[index]}
           ref={ref}
-          onChange={() => onChange(index)}
+          onChange={(e) => onChange(e.currentTarget.value, index)}
           onKeyDown={(e) => onKeyDown(e, index)}
-          onFocus={onFocus}
+          onPaste={(e) => onPaste(e, index)}
           disabled={disabled}
           required={required}
           autoComplete="off"
