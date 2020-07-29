@@ -218,12 +218,15 @@ export const ReactPinCodeInput: FC<ReactPinCodeInputProps> = ({
 
   return (
     <div
+      id={uuid}
       className={invalid ? `${className} invalid` : className}
       style={disableInlineStyles ? {} : { ...defaultStyle, ...style }}
     >
       {refs.map((ref, index) => (
         <input
           key={`${uuid}-${index}`}
+          id={`${uuid}-${index}`}
+          data-id={`${index}`}
           type={type}
           autoFocus={index === focusIndex}
           value={stateValues[index]}

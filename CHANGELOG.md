@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.0.2
+- Add `id` and `data-id` to html elements
+
 ## 1.0.1
 - Paste using `ctrl+v` or `cmd+v` is allowed
 - Delete all using `ctrl+backspace` or `cmd+backspace` is allowed
