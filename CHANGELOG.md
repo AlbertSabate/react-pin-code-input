@@ -1,5 +1,8 @@
 # Changelog
 
+## 1.0.3
+- Dependencies update
+
 ## 1.0.2
 - Add `id` and `data-id` to html elements
 
