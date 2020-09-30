@@ -10,11 +10,16 @@ import React, {
 import PropTypes from 'prop-types';
 
 interface KeyCode {
-  BACKSPACE: 'DOM_VK_BACK_SPACE';
-  LEFT_ARROW: 'DOM_VK_LEFT';
-  UP_ARROW: 'DOM_VK_UP';
-  RIGHT_ARROW: 'DOM_VK_RIGHT';
-  DOWN_ARROW: 'DOM_VK_DOWN';
+  BACKSPACE: 'Backspace';
+  ENTER: 'Enter';
+  LEFT_ARROW_COMPATIBILITY: 'Left';
+  LEFT_ARROW: 'ArrowLeft';
+  UP_ARROW_COMPATIBILITY: 'Up';
+  UP_ARROW: 'ArrowUp';
+  RIGHT_ARROW_COMPATIBILITY: 'Right';
+  RIGHT_ARROW: 'ArrowRight';
+  DOWN_ARROW_COMPATIBILITY: 'Down';
+  DOWN_ARROW: 'ArrowDown';
 }
 
 interface Patterns {
@@ -65,11 +70,16 @@ const defaultInvalidInputStyle: CSSProperties = {
 };
 
 const keyCode: KeyCode = {
-  BACKSPACE: 'DOM_VK_BACK_SPACE',
-  LEFT_ARROW: 'DOM_VK_LEFT',
-  UP_ARROW: 'DOM_VK_UP',
-  RIGHT_ARROW: 'DOM_VK_RIGHT',
-  DOWN_ARROW: 'DOM_VK_DOWN',
+  BACKSPACE: 'Backspace',
+  ENTER: 'Enter',
+  LEFT_ARROW_COMPATIBILITY: 'Left',
+  LEFT_ARROW: 'ArrowLeft',
+  UP_ARROW_COMPATIBILITY: 'Up',
+  UP_ARROW: 'ArrowUp',
+  RIGHT_ARROW_COMPATIBILITY: 'Right',
+  RIGHT_ARROW: 'ArrowRight',
+  DOWN_ARROW_COMPATIBILITY: 'Down',
+  DOWN_ARROW: 'ArrowDown',
 };
 
 const patterns: Patterns = {
@@ -194,11 +204,15 @@ export const ReactPinCodeInput: FC<ReactPinCodeInputProps> = ({
         }
         break;
       case keyCode.LEFT_ARROW:
+      case keyCode.LEFT_ARROW_COMPATIBILITY:
       case keyCode.UP_ARROW:
+      case keyCode.UP_ARROW_COMPATIBILITY:
         prev?.focus();
         break;
       case keyCode.RIGHT_ARROW:
+      case keyCode.RIGHT_ARROW_COMPATIBILITY:
       case keyCode.DOWN_ARROW:
+      case keyCode.DOWN_ARROW_COMPATIBILITY:
         next?.focus();
         break;
       default:
