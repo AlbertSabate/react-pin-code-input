@@ -3,6 +3,7 @@
   "compilerOptions": {
     "module": "esnext",
     "lib": ["dom", "esnext"],
+    "skipLibCheck": true,
     "importHelpers": true,
     "declaration": true,
     "sourceMap": true,
@@ -13,13 +14,10 @@
     "noImplicitReturns": true,
     "noFallthroughCasesInSwitch": true,
     "moduleResolution": "node",
-    "baseUrl": "./",
-    "downlevelIteration": true,
-    "paths": {
-      "@": ["./"],
-      "*": ["src/*", "node_modules/*"]
-    },
+    "forceConsistentCasingInFileNames": true,
+    "noEmit": true,
     "jsx": "react",
-    "esModuleInterop": true
+    "esModuleInterop": true,
+    "downlevelIteration": true
   }
 }

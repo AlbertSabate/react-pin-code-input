@@ -10,11 +10,11 @@ import React, {
 import PropTypes from 'prop-types';
 
 interface KeyCode {
-  BACKSPACE: 8;
-  LEFT_ARROW: 37;
-  UP_ARROW: 38;
-  RIGHT_ARROW: 39;
-  DOWN_ARROW: 40;
+  BACKSPACE: 'DOM_VK_BACK_SPACE';
+  LEFT_ARROW: 'DOM_VK_LEFT';
+  UP_ARROW: 'DOM_VK_UP';
+  RIGHT_ARROW: 'DOM_VK_RIGHT';
+  DOWN_ARROW: 'DOM_VK_DOWN';
 }
 
 interface Patterns {
@@ -65,11 +65,11 @@ const defaultInvalidInputStyle: CSSProperties = {
 };
 
 const keyCode: KeyCode = {
-  BACKSPACE: 8,
-  LEFT_ARROW: 37,
-  UP_ARROW: 38,
-  RIGHT_ARROW: 39,
-  DOWN_ARROW: 40,
+  BACKSPACE: 'DOM_VK_BACK_SPACE',
+  LEFT_ARROW: 'DOM_VK_LEFT',
+  UP_ARROW: 'DOM_VK_UP',
+  RIGHT_ARROW: 'DOM_VK_RIGHT',
+  DOWN_ARROW: 'DOM_VK_DOWN',
 };
 
 const patterns: Patterns = {
@@ -182,7 +182,7 @@ export const ReactPinCodeInput: FC<ReactPinCodeInputProps> = ({
       e.preventDefault();
     }
 
-    switch (e.keyCode) {
+    switch (e.key) {
       case keyCode.BACKSPACE:
         if (e.ctrlKey || e.metaKey) {
           e.preventDefault();
