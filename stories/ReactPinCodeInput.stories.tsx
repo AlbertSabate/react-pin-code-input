@@ -1,6 +1,6 @@
 import React from 'react';
 import { action } from '@storybook/addon-actions';
-import { ReactPinCodeInput, ReactPinCodeInputProps } from '../src';
+import { ReactPinCodeInput, ReactPinCodeInputProps } from '../src/ReactPinCodeInput';
 
 export default {
   title: 'ReactPinCodeInput',
@@ -8,12 +8,10 @@ export default {
 
 // By passing optional props to this story, you can control the props of the component when
 // you consume the story in a test.
-export const Basic = (props?: Partial<ReactPinCodeInputProps>) => {
-  const numberOfFileds = 6;
+export const Basic = (props?: Partial<ReactPinCodeInputProps>): JSX.Element => {
+  const numberOfFields = 6;
 
-  const [value, setValue] = React.useState<Array<string>>(
-    Array(numberOfFileds).fill('')
-  );
+  const [value, setValue] = React.useState<Array<string>>(Array(numberOfFields).fill(''));
 
   const onChange = (value: Array<string>) => {
     // You manage the state, if you do not update it consider ReactPinCodeInput useless.
@@ -23,39 +21,21 @@ export const Basic = (props?: Partial<ReactPinCodeInputProps>) => {
     console.log(value, value.join(''));
   };
 
-  return (
-    <ReactPinCodeInput
-      type={`number`}
-      onInputChange={onChange}
-      value={value}
-      {...props}
-    />
-  );
+  return <ReactPinCodeInput type={`number`} onInputChange={onChange} value={value} {...props} />;
 };
 
-export const Text = (props?: Partial<ReactPinCodeInputProps>) => {
-  const numberOfFileds = 6;
+export const Text = (props?: Partial<ReactPinCodeInputProps>): JSX.Element => {
+  const numberOfFields = 6;
 
-  const [value, setValue] = React.useState<Array<string>>(
-    Array(numberOfFileds).fill('')
-  );
+  const [value, setValue] = React.useState<Array<string>>(Array(numberOfFields).fill(''));
 
-  return (
-    <ReactPinCodeInput
-      type={`text`}
-      onInputChange={setValue}
-      value={value}
-      {...props}
-    />
-  );
+  return <ReactPinCodeInput type={`text`} onInputChange={setValue} value={value} {...props} />;
 };
 
-export const Disabled = (props?: Partial<ReactPinCodeInputProps>) => {
-  const numberOfFileds = 6;
+export const Disabled = (props?: Partial<ReactPinCodeInputProps>): JSX.Element => {
+  const numberOfFields = 6;
 
-  const [value, setValue] = React.useState<Array<string>>(
-    Array(numberOfFileds).fill('')
-  );
+  const [value, setValue] = React.useState<Array<string>>(Array(numberOfFields).fill(''));
 
   return (
     <ReactPinCodeInput
@@ -68,12 +48,10 @@ export const Disabled = (props?: Partial<ReactPinCodeInputProps>) => {
   );
 };
 
-export const Invalid = (props?: Partial<ReactPinCodeInputProps>) => {
-  const numberOfFileds = 6;
+export const Invalid = (props?: Partial<ReactPinCodeInputProps>): JSX.Element => {
+  const numberOfFields = 6;
 
-  const [value, setValue] = React.useState<Array<string>>(
-    Array(numberOfFileds).fill('')
-  );
+  const [value, setValue] = React.useState<Array<string>>(Array(numberOfFields).fill(''));
 
   return (
     <ReactPinCodeInput
@@ -86,12 +64,10 @@ export const Invalid = (props?: Partial<ReactPinCodeInputProps>) => {
   );
 };
 
-export const NoStyle = (props?: Partial<ReactPinCodeInputProps>) => {
-  const numberOfFileds = 6;
+export const NoStyle = (props?: Partial<ReactPinCodeInputProps>): JSX.Element => {
+  const numberOfFields = 6;
 
-  const [value, setValue] = React.useState<Array<string>>(
-    Array(numberOfFileds).fill('')
-  );
+  const [value, setValue] = React.useState<Array<string>>(Array(numberOfFields).fill(''));
 
   return (
     <ReactPinCodeInput
@@ -104,12 +80,10 @@ export const NoStyle = (props?: Partial<ReactPinCodeInputProps>) => {
   );
 };
 
-export const Required = (props?: Partial<ReactPinCodeInputProps>) => {
-  const numberOfFileds = 6;
+export const Required = (props?: Partial<ReactPinCodeInputProps>): JSX.Element => {
+  const numberOfFields = 6;
 
-  const [value, setValue] = React.useState<Array<string>>(
-    Array(numberOfFileds).fill('')
-  );
+  const [value, setValue] = React.useState<Array<string>>(Array(numberOfFields).fill(''));
 
   return (
     <form
@@ -130,12 +104,10 @@ export const Required = (props?: Partial<ReactPinCodeInputProps>) => {
   );
 };
 
-export const NoAutofocus = (props?: Partial<ReactPinCodeInputProps>) => {
-  const numberOfFileds = 6;
+export const NoAutofocus = (props?: Partial<ReactPinCodeInputProps>): JSX.Element => {
+  const numberOfFields = 6;
 
-  const [value, setValue] = React.useState<Array<string>>(
-    Array(numberOfFileds).fill('')
-  );
+  const [value, setValue] = React.useState<Array<string>>(Array(numberOfFields).fill(''));
 
   return (
     <ReactPinCodeInput
@@ -148,12 +120,10 @@ export const NoAutofocus = (props?: Partial<ReactPinCodeInputProps>) => {
   );
 };
 
-export const WithPattern = (props?: Partial<ReactPinCodeInputProps>) => {
-  const numberOfFileds = 6;
+export const WithPattern = (props?: Partial<ReactPinCodeInputProps>): JSX.Element => {
+  const numberOfFields = 6;
 
-  const [value, setValue] = React.useState<Array<string>>(
-    Array(numberOfFileds).fill('')
-  );
+  const [value, setValue] = React.useState<Array<string>>(Array(numberOfFields).fill(''));
 
   return (
     <ReactPinCodeInput
@@ -166,13 +136,11 @@ export const WithPattern = (props?: Partial<ReactPinCodeInputProps>) => {
   );
 };
 
-export const CustomStyles = (props?: Partial<ReactPinCodeInputProps>) => {
-  const numberOfFileds = 6;
+export const CustomStyles = (props?: Partial<ReactPinCodeInputProps>): JSX.Element => {
+  const numberOfFields = 6;
 
   const [invalid, setInvalid] = React.useState<boolean>(false);
-  const [value, setValue] = React.useState<Array<string>>(
-    Array(numberOfFileds).fill('')
-  );
+  const [value, setValue] = React.useState<Array<string>>(Array(numberOfFields).fill(''));
 
   const changeToInvalid = () => {
     setInvalid(!invalid);
@@ -197,14 +165,12 @@ export const CustomStyles = (props?: Partial<ReactPinCodeInputProps>) => {
         }}
         {...props}
       />
-      <button onClick={changeToInvalid}>
-        {invalid ? `Change To Valid` : `Change To Invalid`}
-      </button>
+      <button onClick={changeToInvalid}>{invalid ? `Change To Valid` : `Change To Invalid`}</button>
     </>
   );
 };
 
-export const WithInitialValues = (props?: Partial<ReactPinCodeInputProps>) => {
+export const WithInitialValues = (props?: Partial<ReactPinCodeInputProps>): JSX.Element => {
   const [value, setValue] = React.useState<Array<string>>([
     '2',
     '3',
@@ -220,12 +186,5 @@ export const WithInitialValues = (props?: Partial<ReactPinCodeInputProps>) => {
     '',
   ]);
 
-  return (
-    <ReactPinCodeInput
-      type={`number`}
-      onInputChange={setValue}
-      value={value}
-      {...props}
-    />
-  );
+  return <ReactPinCodeInput type={`number`} onInputChange={setValue} value={value} {...props} />;
 };

@@ -1,61 +1,6 @@
 {
-  "version": "1.0.3",
-  "license": "MIT",
-  "main": "dist/index.js",
-  "typings": "dist/index.d.ts",
-  "files": [
-    "dist",
-    "src"
-  ],
-  "engines": {
-    "node": ">=10"
-  },
-  "scripts": {
-    "start": "tsdx watch",
-    "build": "tsdx build",
-    "test": "tsdx test --passWithNoTests",
-    "lint": "tsdx lint",
-    "prepare": "tsdx build",
-    "size": "size-limit",
-    "analyze": "size-limit --why",
-    "storybook": "start-storybook -p 6006",
-    "build-storybook": "build-storybook"
-  },
-  "peerDependencies": {
-    "react": ">=16"
-  },
-  "husky": {
-    "hooks": {
-      "pre-commit": "tsdx lint"
-    }
-  },
-  "prettier": {
-    "printWidth": 80,
-    "semi": true,
-    "singleQuote": true,
-    "trailingComma": "es5",
-    "arrowParens": "always"
-  },
-  "size-limit": [
-    {
-      "path": "dist/react-pin-code-input.cjs.production.min.js",
-      "limit": "10 KB"
-    },
-    {
-      "path": "dist/react-pin-code-input.esm.js",
-      "limit": "10 KB"
-    }
-  ],
   "name": "react-pin-code-input",
-  "author": {
-    "name": "Albert Sabate",
-    "url": "https://github.com/AlbertSabate"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/AlbertSabate/react-pin-code-input.git"
-  },
-  "module": "dist/react-pin-code-input.esm.js",
+  "version": "2.0.0",
   "keywords": [
     "react",
     "component",
@@ -63,27 +8,109 @@
     "pin",
     "code"
   ],
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/AlbertSabate/react-pin-code-input.git"
+  },
+  "license": "MIT",
+  "author": {
+    "name": "Albert Sabate",
+    "url": "https://github.com/AlbertSabate"
+  },
+  "main": "dist/ReactPinCodeInput.js",
+  "module": "dist/ReactPinCodeInput.esm.js",
+  "typings": "dist/ReactPinCodeInput.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "start": "start-storybook -p 6006",
+    "build": "rm -Rf dist && rollup -c rollup.config.ts",
+    "build:storybook": "build-storybook",
+    "test": "jest -i --coverage",
+    "lint": "eslint . --ext .tsx",
+    "prepare": "husky install",
+    "pre-commit": "lint-staged",
+    "pre-push": "npm run test && npm run build && npm run size",
+    "size": "size-limit",
+    "analyze": "size-limit --why"
+  },
+  "lint-staged": {
+    "src/**/*.ts": [
+      "npm run lint -- --fix"
+    ]
+  },
   "devDependencies": {
-    "@babel/core": "^7.11.6",
-    "@size-limit/preset-small-lib": "^4.6.0",
-    "@storybook/addon-essentials": "^6.0.22",
-    "@storybook/addon-info": "^5.3.21",
-    "@storybook/addon-links": "^6.0.22",
-    "@storybook/addons": "^6.0.22",
-    "@storybook/react": "^6.0.22",
+    "@rollup/plugin-typescript": "^8.2.1",
+    "@size-limit/preset-small-lib": "^4.10.2",
+    "@storybook/addon-actions": "^6.2.7",
+    "@storybook/addon-docs": "^6.2.7",
+    "@storybook/addon-essentials": "^6.2.7",
+    "@storybook/addon-links": "^6.2.7",
+    "@storybook/node-logger": "^6.2.7",
+    "@storybook/react": "^6.2.7",
+    "@testing-library/dom": "^7.30.3",
+    "@testing-library/jest-dom": "^5.11.10",
+    "@testing-library/react": "^11.2.6",
+    "@testing-library/react-hooks": "^5.1.1",
+    "@testing-library/user-event": "^13.1.2",
+    "@types/node": "^14.14.37",
     "@types/prop-types": "^15.7.3",
-    "@types/react": "^16.9.49",
-    "@types/react-dom": "^16.9.8",
-    "babel-jest": "^26.3.0",
-    "babel-loader": "^8.1.0",
-    "husky": "^4.3.0",
+    "@types/react": "^17.0.3",
+    "@types/react-dom": "^17.0.3",
+    "@typescript-eslint/eslint-plugin": "^4.21.0",
+    "@typescript-eslint/parser": "^4.21.0",
+    "acorn": "^8.1.0",
+    "eslint": "^7.24.0",
+    "eslint-config-prettier": "^8.1.0",
+    "eslint-config-react": "^1.1.7",
+    "eslint-import-resolver-typescript": "^2.4.0",
+    "eslint-plugin-import": "^2.22.1",
+    "eslint-plugin-jest": "^24.3.5",
+    "eslint-plugin-jsx-a11y": "^6.4.1",
+    "eslint-plugin-prettier": "^3.3.1",
+    "eslint-plugin-react": "^7.23.2",
+    "eslint-plugin-react-hooks": "^4.2.0",
+    "eslint-plugin-testing-library": "^3.10.2",
+    "husky": "^6.0.0",
+    "jest": "^26.6.3",
+    "jest-circus": "^26.6.3",
+    "jest-watch-typeahead": "^0.6.2",
+    "lint-staged": "^10.5.4",
+    "prettier": "^2.2.1",
     "prop-types": "^15.7.2",
-    "react": "^16.13.1",
-    "react-dom": "^16.13.1",
-    "react-is": "^16.13.1",
-    "size-limit": "^4.6.0",
-    "tsdx": "^0.14.0",
-    "tslib": "^2.0.1",
-    "typescript": "^4.0.3"
-  }
+    "react": "^17.0.2",
+    "react-dom": "^17.0.2",
+    "rollup": "^2.45.1",
+    "size-limit": "^4.10.2",
+    "ts-jest": "^26.5.4",
+    "ts-node": "^9.1.1",
+    "tslib": "^2.2.0",
+    "typescript": "^4.2.4"
+  },
+  "peerDependencies": {
+    "react": ">=17.0",
+    "react-dom": ">=17.0"
+  },
+  "engines": {
+    "node": ">=12"
+  },
+  "size-limit": [
+    {
+      "path": "dist/ReactPinCodeInput.js",
+      "limit": "2 KB"
+    },
+    {
+      "path": "dist/ReactPinCodeInput.esm.js",
+      "limit": "2 KB"
+    },
+    {
+      "path": "dist/ReactPinCodeInputWithPropTypes.js",
+      "limit": "2 KB"
+    },
+    {
+      "path": "dist/ReactPinCodeInputWithPropTypes.esm.js",
+      "limit": "2 KB"
+    }
+  ]
 }

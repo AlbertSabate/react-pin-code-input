@@ -1,0 +1,29 @@
+{
+  "compileOnSave": false,
+  "compilerOptions": {
+    "target": "es2019",
+    "lib": [
+      "dom",
+      "dom.iterable",
+      "esnext"
+    ],
+    "module": "commonjs",
+    "noEmit": true,
+    // use Node's module resolution algorithm, instead of the legacy TS one
+    "moduleResolution": "node",
+    // interop between ESM and CJS modules. Recommended by TS
+    "esModuleInterop": true,
+    // stricter type-checking for stronger correctness. Recommended by TS
+    "strict": true,
+    // significant perf increase by skipping checking .d.ts files, particularly those in node_modules. Recommended by TS
+    "skipLibCheck": true,
+    "allowUnreachableCode": false,
+    // linter checks for common issues
+    "noImplicitReturns": true,
+    "noFallthroughCasesInSwitch": true,
+    // error out if import and file system have a casing mismatch. Recommended by TS
+    "forceConsistentCasingInFileNames": true,
+    // Do not emit comments to output.
+    "removeComments": true
+  }
+}

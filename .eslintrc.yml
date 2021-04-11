@@ -1,0 +1,48 @@
+extends:
+  - eslint:recommended
+  - plugin:import/errors
+  - plugin:import/typescript
+  - plugin:@typescript-eslint/eslint-recommended
+  - plugin:@typescript-eslint/recommended
+  - plugin:@typescript-eslint/recommended-requiring-type-checking
+  - plugin:prettier/recommended
+  - prettier
+
+parser: '@typescript-eslint/parser'
+
+parserOptions:
+  project: ./tsconfig.build.json
+
+env:
+  node: true
+
+rules:
+  max-len:
+    - error
+    - code: 120
+  '@typescript-eslint/lines-between-class-members':
+    - error
+    - always
+    - exceptAfterSingleLine: true
+  '@typescript-eslint/naming-convention':
+    - error
+    - selector: variable
+      format:
+        - camelCase
+    - selector: variable
+      modifiers:
+        - const
+      format:
+        - camelCase
+        - UPPER_CASE
+        - PascalCase
+    - selector: function
+      format:
+        - camelCase
+        - PascalCase
+    - selector: typeLike
+      format:
+        - PascalCase
+  '@typescript-eslint/no-unused-vars':
+    - error
+    - ignoreRestSiblings: true

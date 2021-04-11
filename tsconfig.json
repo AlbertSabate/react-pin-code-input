@@ -1,13 +1,15 @@
 {
-  "include": ["src", "types"],
+  "include": ["src", "stories", "test"],
   "compilerOptions": {
     "module": "esnext",
-    "lib": ["dom", "esnext"],
+    "target": "es2019",
+    "lib": ["dom", "dom.iterable", "esnext"],
+    "outDir": "./dist",
     "skipLibCheck": true,
     "importHelpers": true,
     "declaration": true,
-    "sourceMap": true,
-    "rootDir": "./src",
+    "sourceMap": false,
+    "rootDirs": ["./src", "./stories", "./test"],
     "strict": true,
     "noUnusedLocals": true,
     "noUnusedParameters": true,
@@ -16,7 +18,7 @@
     "moduleResolution": "node",
     "forceConsistentCasingInFileNames": true,
     "noEmit": true,
-    "jsx": "react",
+    "jsx": "react-jsx",
     "esModuleInterop": true,
     "downlevelIteration": true
   }

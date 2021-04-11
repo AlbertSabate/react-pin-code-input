@@ -1,0 +1,5 @@
+extends:
+  - ../src/.eslintrc.yml
+
+parserOptions:
+  project: ../tsconfig.json
