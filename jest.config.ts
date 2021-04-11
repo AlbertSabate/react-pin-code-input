@@ -3,11 +3,11 @@ import type { Config } from '@jest/types';
 // Sync object
 const jestConfig: Config.InitialOptions = {
   preset: 'ts-jest',
-  roots: ['<rootDir>/src'],
+  roots: ['<rootDir>/src', '<rootDir>/test'],
   collectCoverageFrom: ['src/**/*.{js,jsx,ts,tsx}', '!src/**/*.d.ts', '!src/index.ts'],
   setupFilesAfterEnv: ['<rootDir>/.jest/setupTests.ts'],
   testRunner: 'jest-circus/runner',
-  testMatch: ['<rootDir>/src/**/*.{spec,test}.{js,jsx,ts,tsx}'],
+  testMatch: ['<rootDir>/test/**/*.{spec,test}.{js,jsx,ts,tsx}'],
   testPathIgnorePatterns: ['/node_modules/', '/dist/'],
   modulePaths: [],
   moduleDirectories: ['node_modules', 'src'],
