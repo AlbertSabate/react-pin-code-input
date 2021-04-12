@@ -16,7 +16,7 @@ jobs:
 
       - name: Install and Build 🔧
         run: |
-          yarn install --frozen-lockfile
+          npm ci
           yarn build:storybook
 
       - name: Deploy 🚀
