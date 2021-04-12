@@ -1,8 +1,0 @@
-extends:
-  - ../src/.eslintrc.yml
-
-parserOptions:
-  project: ../tsconfig.json
-
-rules:
-  import/no-anonymous-default-export: off

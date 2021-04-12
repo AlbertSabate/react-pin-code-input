@@ -16,6 +16,31 @@ parserOptions:
 env:
   node: true
 
+overrides:
+  - files:
+      - stories/**/*.tsx
+      - test/**/*.tsx
+    parserOptions:
+      project: ./tsconfig.json
+    rules:
+      import/no-anonymous-default-export: off
+  - files:
+      - src/**/*.tsx
+    parserOptions:
+      project: ./tsconfig.json
+      ecmaFeatures:
+        jsx: true
+    settings:
+      react:
+        version: detect
+    env:
+      browser: true
+    rules:
+      react/jsx-uses-react: off
+      react/react-in-jsx-scope: off
+      jsx-a11y/no-autofocus: off
+      react/prop-types: off
+
 rules:
   max-len:
     - error
