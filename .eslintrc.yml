@@ -20,12 +20,21 @@ overrides:
   - files:
       - stories/**/*.tsx
       - test/**/*.tsx
-    parserOptions:
-      project: ./tsconfig.json
-    rules:
-      import/no-anonymous-default-export: off
-  - files:
       - src/**/*.tsx
+    extends:
+      - eslint:recommended
+      - plugin:import/errors
+      - plugin:import/typescript
+      - plugin:@typescript-eslint/eslint-recommended
+      - plugin:@typescript-eslint/recommended
+      - plugin:@typescript-eslint/recommended-requiring-type-checking
+      - plugin:react/recommended
+      - plugin:react-hooks/recommended
+      - plugin:jsx-a11y/recommended
+      - plugin:jest/recommended
+      - plugin:testing-library/recommended
+      - plugin:prettier/recommended
+      - prettier
     parserOptions:
       project: ./tsconfig.json
       ecmaFeatures:
@@ -36,6 +45,7 @@ overrides:
     env:
       browser: true
     rules:
+      import/no-anonymous-default-export: off
       react/jsx-uses-react: off
       react/react-in-jsx-scope: off
       jsx-a11y/no-autofocus: off
