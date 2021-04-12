@@ -29,7 +29,7 @@
     "build:storybook": "build-storybook",
     "test": "jest -i --coverage",
     "lint": "eslint . --ext .tsx",
-    "prepare": "husky install && npm run build",
+    "prepare": "husky install",
     "precommit": "lint-staged",
     "prepush": "npm run test && npm run build && npm run size",
     "size": "size-limit",
