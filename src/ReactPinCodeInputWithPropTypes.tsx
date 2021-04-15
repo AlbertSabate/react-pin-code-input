@@ -5,6 +5,7 @@ import { ReactPinCodeInputComponent, ReactPinCodeInputProps } from './ReactPinCo
 // If you are using this file is assumed you have installed prop-types
 // eslint-disable-next-line @typescript-eslint/ban-ts-comment
 // @ts-ignore
+// eslint-disable-next-line @typescript-eslint/no-unsafe-member-access
 ReactPinCodeInputComponent.propTypes = {
   type: PropTypes.oneOf(['text', 'number', 'password', 'tel']),
   autoFocus: PropTypes.bool,

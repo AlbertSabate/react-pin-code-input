@@ -5,6 +5,7 @@ import {
   HTMLAttributes,
   KeyboardEvent,
   memo,
+  useEffect,
 } from 'react';
 
 interface KeyCode {
@@ -126,33 +127,26 @@ export function ReactPinCodeInputComponent(props: ReactPinCodeInputProps): JSX.E
   const refs = Array.from({ length: stateValues.length }).map(() => createRef<HTMLInputElement>());
   const checkPattern = pattern || patterns[type];
 
+  useEffect(() => {
+    stateValues.forEach((value, index) => {
+      const ref = refs[index]?.current;
+      if (ref) {
+        ref.value = value;
+      }
+    });
+  }, [refs, stateValues]);
+
   const onChange = (value: string, index: number) => {
-    const ref = refs[index]?.current;
     const changedValues = [...stateValues];
 
-    if (ref) {
-      if (checkPattern && !checkPattern.test(value)) {
-        ref.value = changedValues[index];
-        return;
-      }
-
-      changedValues[index] = value;
-      ref.value = changedValues[index];
-      onInputChange(changedValues);
-    }
+    changedValues[index] = value;
+    onInputChange(changedValues);
   };
 
   const onChangeAll = (values: Array<string>) => {
     for (const [key, value] of values.entries()) {
-      const ref = refs[key]?.current;
-
-      if (ref) {
-        ref.value = stateValues[key];
-
-        if (checkPattern && !checkPattern.test(value)) {
-          values[key] = '';
-          ref.value = '';
-        }
+      if (checkPattern && !checkPattern.test(value)) {
+        values[key] = '';
       }
     }
 
@@ -186,6 +180,7 @@ export function ReactPinCodeInputComponent(props: ReactPinCodeInputProps): JSX.E
     const current = refs[index].current;
     const next = refs[index + 1]?.current;
     const prev = refs[index - 1]?.current;
+    const isValidKey = checkPattern && checkPattern.test(e.key);
 
     if (!(e.ctrlKey || e.metaKey)) {
       e.preventDefault();
@@ -199,7 +194,7 @@ export function ReactPinCodeInputComponent(props: ReactPinCodeInputProps): JSX.E
           refs[0].current?.focus();
         } else if (current?.value !== '') {
           onChange('', index);
-        } else if (current?.value === '') {
+        } else if (current?.value === '' && index > 0) {
           onChange('', index - 1);
           prev?.focus();
         }
@@ -219,9 +214,7 @@ export function ReactPinCodeInputComponent(props: ReactPinCodeInputProps): JSX.E
       default:
         if (current?.value === e.key) {
           next?.focus();
-        } else if ((checkPattern && !checkPattern.test(e.key)) || e.ctrlKey || e.metaKey) {
-          // We want to ignore this case
-        } else if (current) {
+        } else if (current && isValidKey && !e.ctrlKey && !e.metaKey) {
           onChange(e.key, index);
           next?.focus();
         }
